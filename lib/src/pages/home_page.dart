@@ -14,97 +14,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: LightColor.background,
-      appBar: const TopNavigationBar(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            _buildHeader(),
-            _buildPromoBanner(),
-            _buildQuickActions(),
-            _buildFlashSaleHeader(),
-            _buildFlashSaleItems(),
-            _buildRamadanPromo(),
-            _buildLiveSection(),
-            _buildCategoryWidget(),
-            _buildProductWidget(),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.search, color: Colors.grey[600], size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Cari',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 14,
-                        ),
-                        border: InputBorder.none,
-                        isDense: true,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
+    return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
+      slivers: [
+        // Sliver App Bar untuk navbar
+        SliverAppBar(
+            pinned: true,
+            elevation: 0,
+            backgroundColor: LightColor.orange,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 50,
+            collapsedHeight: 50,
+            flexibleSpace: Container(
               color: LightColor.orange,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.chat_bubble_outline,
-              color: Colors.white,
-              size: 18,
+              child: SafeArea(
+                bottom: false,
+                child: const TopNavigationBar(),
+              ),
             ),
           ),
-        ],
-      ),
+
+        // SliverList untuk konten
+        SliverList(
+          delegate: SliverChildListDelegate([
+            const SizedBox(height: 16),
+            _buildPromoBanner(),
+            const SizedBox(height: 16),
+            _buildQuickActions(),
+            const SizedBox(height: 16),
+            _buildFlashSaleHeader(),
+            const SizedBox(height: 12),
+            _buildFlashSaleItems(),
+            const SizedBox(height: 16),
+            _buildRamadanPromo(),
+            const SizedBox(height: 16),
+            _buildLiveSection(),
+            const SizedBox(height: 16),
+            _buildCategoryWidget(),
+            const SizedBox(height: 16),
+            _buildProductWidget(),
+            const SizedBox(height: 24),
+          ]),
+        ),
+
+        const SliverToBoxAdapter(child: SizedBox(height: 50)),
+      ],
     );
   }
 
+  // ... (semua method widget lainnya tetap sama seperti sebelumnya)
   Widget _buildPromoBanner() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [LightColor.purple, LightColor.darkPurple],
+          colors: [LightColor.orange, LightColor.darkOrange],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -124,10 +91,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 4),
           const Text(
             'BIG RAMADAN SALE',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 12),
           ),
           const SizedBox(height: 8),
           Row(
@@ -144,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   'LOUISESSECARLETT FAMILY',
                   style: TextStyle(
-                    color: LightColor.purple,
+                    color: LightColor.orange,
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                   ),
@@ -159,17 +123,31 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildQuickActions() {
     final List<Map<String, dynamic>> quickActions = [
-      {'icon': Icons.credit_card, 'label': 'Pulsa & Tagihan', 'color': LightColor.orange},
+      {
+        'icon': Icons.credit_card,
+        'label': 'Pulsa & Tagihan',
+        'color': LightColor.orange,
+      },
       {'icon': Icons.restaurant, 'label': 'Food', 'color': Colors.green},
       {'icon': Icons.star, 'label': 'VIP x ChatGPT', 'color': Colors.amber},
       {'icon': Icons.mosque, 'label': 'Barokah', 'color': LightColor.purple},
-      {'icon': Icons.flash_on, 'label': 'Flash Sale', 'color': Colors.red, 'badge': '1RB'},
+      {
+        'icon': Icons.flash_on,
+        'label': 'Flash Sale',
+        'color': Colors.red,
+        'badge': '1RB',
+      },
       {'icon': Icons.card_giftcard, 'label': 'Hadiah', 'color': Colors.pink},
-      {'icon': Icons.live_tv, 'label': 'Live', 'color': Colors.blue, 'isLive': true},
+      {
+        'icon': Icons.live_tv,
+        'label': 'Live',
+        'color': Colors.blue,
+        'isLive': true,
+      },
     ];
 
-    return Container(
-      padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           // First row
@@ -270,10 +248,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
           textAlign: TextAlign.center,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
@@ -283,7 +258,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildFlashSaleHeader() {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
@@ -291,17 +266,11 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 4),
           const Text(
             'Flash Sale',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const SizedBox(width: 8),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(4),
@@ -371,7 +340,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         child: const Center(
-                          child: Icon(Icons.image, color: Colors.grey, size: 40),
+                          child: Icon(
+                            Icons.image,
+                            color: Colors.grey,
+                            size: 40,
+                          ),
                         ),
                       ),
                       if (index == 0)
@@ -483,11 +456,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildRamadanPromo() {
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [LightColor.darkBlue, LightColor.lightBlue],
+          colors: [LightColor.darkOrange, LightColor.orange],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -518,10 +491,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -541,8 +511,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildLiveSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -552,10 +522,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(width: 8),
               const Text(
                 'Live',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ],
           ),
@@ -577,8 +544,11 @@ class _HomePageState extends State<HomePage> {
                           CircleAvatar(
                             radius: 30,
                             backgroundColor: Colors.grey[300],
-                            child: const Icon(Icons.person,
-                                color: Colors.white, size: 30),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 30,
+                            ),
                           ),
                           Positioned(
                             bottom: 0,
@@ -625,7 +595,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Category Widget dari kode awal
   Widget _buildCategoryWidget() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -633,6 +602,7 @@ class _HomePageState extends State<HomePage> {
       height: 80,
       child: ListView(
         scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         children: AppData.categoryList
             .map(
               (category) => ProductIcon(
@@ -652,7 +622,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Product Widget dari kode awal
   Widget _buildProductWidget() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -660,10 +629,11 @@ class _HomePageState extends State<HomePage> {
       height: AppTheme.fullWidth(context) * 0.7,
       child: GridView(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 4 / 3,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 20),
+          crossAxisCount: 1,
+          childAspectRatio: 4 / 3,
+          mainAxisSpacing: 30,
+          crossAxisSpacing: 20,
+        ),
         padding: const EdgeInsets.only(left: 20),
         scrollDirection: Axis.horizontal,
         children: AppData.productList

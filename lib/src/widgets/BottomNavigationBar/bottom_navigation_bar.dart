@@ -7,7 +7,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
   
   const CustomBottomNavigationBar({
     Key? key,
-    required this.onIconPresedCallback,
+    required this.onIconPresedCallback, double? height,
   }) : super(key: key);
 
   @override

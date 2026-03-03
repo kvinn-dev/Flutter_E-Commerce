@@ -14,8 +14,8 @@ class LightColor {
   static const Color purple = Color(0xff7B1FA2);
   static const Color darkPurple = Color(0xff4A0072);
   static const Color lightGrey = Color(0xffE0E0E0);
-  static const Color orange = Color(0xffFB8C00);
-  static const Color darkOrange = Color(0xffF57C00);
+  static const Color orange = Color(0xFFEE4D2D);
+  static const Color darkOrange = Color.fromARGB(255, 219, 52, 18);
   static const Color darkBlue = Color(0xff0D47A1);
   static const Color lightBlue = Color(0xff42A5F5);
   static const Color iconColor = Color(0xff757575);
