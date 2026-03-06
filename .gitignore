@@ -1,0 +1,38 @@
+# ==========================
+# Flutter / Dart
+# ==========================
+.dart_tool/
+.packages
+build/
+pubspec.lock      # boleh dikomit kalau ingin konsisten dependency
+doc/api/
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+.idea/
+.vscode/
+
+# ==========================
+# Node.js
+# ==========================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ==========================
+# Env files
+# ==========================
+# Semua file env, jangan commit
+.env
+.env.*           # misal .env.prod, .env.dev
+NodejsApp/.env*
+NodejsApp/prod.env
+NodejsApp/env
+
+# ==========================
+# Misc / OS files
+# ==========================
+.DS_Store
